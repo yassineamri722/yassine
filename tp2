@@ -1,0 +1,185 @@
+ex1:
+#include<stdio.h>
+#define n 3
+#define m 2
+int main(){
+	int T1[n];
+	int T2[m];
+	for(int i=0;i<n;i++){
+		scanf("%d",&T1[i]);	
+	}
+	for(int j=0;j<m;j++){
+		scanf("%d",&T2[j]);
+		
+	}
+	int s=0;
+	for(int k=0;k<m;k++){
+		for(int v=0;k<n;v++){
+			s=s+T2[k]*T1[v];
+		}
+	}
+	return s;
+}
+ex2:
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    int T[n+1];
+    for(int i = 0; i <= n; i++) {
+        scanf("%d", &T[i]);
+    }
+
+    float x;
+    scanf("%f", &x);
+
+    int s = 0;
+    for(int i = 0; i <= n; i++) {
+        s = s + T[i] * pow(x, i);
+    }
+
+    printf("%d", s);
+
+    return 0;
+}
+ex4:
+#include <stdio.h>
+
+int main() {
+    int N;
+    printf("Entrez le degré N (ne dépassez pas 13) : ");
+    scanf("%d", &N);
+
+    if (N > 13) {
+        printf("Le degré ne doit pas dépasser 13.\n");
+        return 1; 
+    }
+
+    
+    long long P[N+1][N+1];
+
+    for (int i = 0; i <= N; i++) {
+        P[i][i] = 1;
+    }
+
+    for (int i = 2; i <= N; i++) {
+        for (int j = 1; j < i; j++) {
+            P[i][j] = P[i-1][j] + P[i-1][j-1];
+        }
+    }
+
+    for (int i = 0; i <= N; i++) {
+        for (int j = 0; j <= i; j++) {
+            printf("%lld ", P[i][j]); 
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+ex5:
+
+ex5:
+#include <stdio.h>
+
+#define N 3 
+void rotateMatrix(int mat[N][N]) {
+    for (int i = 0; i < N / 2; i++) {
+        for (int j = i; j < N - i - 1; j++) {
+            int temp = mat[i][j];
+            mat[i][j] = mat[N - j - 1][i];
+            mat[N - j - 1][i] = mat[N - i - 1][N - j - 1];
+            mat[N - i - 1][N - j - 1] = mat[j][N - i - 1];
+            mat[j][N - i - 1] = temp;
+        }
+    }
+}
+void printMatrix(int mat[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%d ", mat[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main() {
+    int mat[N][N] = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+    rotateMatrix(mat);
+    printMatrix(mat);
+
+    return 0;
+}
+ex6:
+#include <stdio.h>
+#include <string.h>
+
+int compter_mots(char *texte) {
+    int mots = 0;
+    int longueur = strlen(texte);
+    int i;
+
+    for (i = 0; i < longueur; i++) {
+        if (texte[i] == ' ') {
+            mots++;
+        }
+    }
+
+    return mots + 1; 
+}
+
+int main() {
+    char texte[501]; 
+    printf("Entrez le texte : ");
+    fgets(texte, sizeof(texte), stdin);
+    texte[strlen(texte) - 1] = '\0';
+
+    if (strlen(texte) > 500) {
+        printf("Erreur : Le texte ne doit pas dépasser 500 caractères.\n");
+    } else {
+        int nombre_de_mots = compter_mots(texte);
+        printf("Le texte contient %d mots.\n", nombre_de_mots);
+    }
+
+    return 0;
+}
+
+ex8:
+#include <stdio.h>
+#include <string.h>
+char* chercher_occurrence(char* ch1, char* ch2) {
+    return strstr(ch1, ch2);
+}
+void supprimer_occurrence(char* ch1, char* ch2) {
+    char* occurrence = chercher_occurrence(ch1, ch2);
+    
+    if (occurrence != NULL) {
+        memmove(occurrence, occurrence + strlen(ch2), strlen(occurrence + strlen(ch2)) + 1);
+    }
+}
+
+int main() {
+    char ch1[100], ch2[100];
+
+    printf("Entrez la chaine ch1 : ");
+    gets(ch1);
+
+    printf("Entrez la chaine ch2 : ");
+    gets(ch2);
+
+    char* occurrence = chercher_occurrence(ch1, ch2);
+
+    if (occurrence != NULL) {
+        printf("Première occurrence de ch2 dans ch1 : %s\n", occurrence);
+        
+        supprimer_occurrence(ch1, ch2);
+        printf("ch1 après suppression : %s\n", ch1);
+    } else {
+        printf("Aucune occurrence de ch2 dans ch1.\n");
+    }
+
+    return 0;
+}
